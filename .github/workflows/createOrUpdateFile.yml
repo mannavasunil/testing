@@ -1,18 +1,20 @@
 name: Create/Update instance.yml file
 
-on: push
+on: 
+    workflow_dispatch:
 jobs:
     update-yml-file:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
-            - run : |
-                git pull
+            - run: |
                 yq -i '.instances.postgres.members[0].name="postgres-m1"' instances.yml
                 yq -i '.instances.postgres.members[1].name="postgres-m2"' instances.yml
                 yq -i '.instances.postgres.members[2].name="postgres-m3"' instances.yml
                 git add .
                 git commit -m "testing yaml update"
-                git push origin master
+                git fetch origin
+                git rebase --strategy-option=theirs origin/main
+                git push
                 echo "YAML Update completed"
                 
