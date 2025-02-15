@@ -15,8 +15,8 @@ jobs:
                 git config --global user.name "Sunil GA"
                 git add .
                 git commit -m "testing yaml update"
-                git fetch origin
+                git fetch origin master
                 git rebase --strategy-option=theirs origin/main
-                git push
+                git push origin master
                 echo "YAML Update completed"
                 
