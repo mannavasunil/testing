@@ -1,0 +1,25 @@
+instances:
+  etcd:
+    members:
+      - name: etcd-m1
+        ip: 100.0.0.1
+      - name: etcd-m2
+        ip: 100.0.0.2
+      - name: etcd-m3
+        ip: 100.0.0.3
+  haproxy:
+    members:
+      - name: etcd-m1
+        ip: 100.0.0.1
+      - name: etcd-m2
+        ip: 100.0.0.2
+      - name: etcd-m3
+        ip: 100.0.0.3
+  postgres:
+    members:
+      - name: postgres-m1
+        ip: 100.0.0.1
+      - name: etcd-m2
+        ip: 100.0.0.2
+      - name: etcd-m3
+        ip: 100.0.0.3
