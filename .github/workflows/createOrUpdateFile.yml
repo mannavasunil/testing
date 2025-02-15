@@ -16,7 +16,7 @@ jobs:
                 git add .
                 git commit -m "testing yaml update"
                 git fetch origin master
-                git rebase --strategy-option=theirs origin/main
-                git push origin master
+                git rebase --strategy-option=theirs origin/master
+                git push origin HEAD:master
                 echo "YAML Update completed"
                 
