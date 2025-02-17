@@ -1,0 +1,20 @@
+
+#!/bin/bash
+yq -i '.etcd.members=[]' ./yq_pg/sample.yml
+#cd jq_pg
+for f in jq_pg/*.json; do
+
+    vmIndex=$(jq -n "\"$f\" | split(\"-\";null) | .[-2] | tonumber")
+    echo "$vmIndex"
+
+    vmIp=$(jq '.ip' $f )
+    echo "$tempIp"
+
+    vmName=$(jq --arg vmi "$vmIndex" '.subproject.environment +"-"+ .site+"-"+$vmi' $f)
+    echo "$vmName"
+
+    vip="$vmIp" vname="$vmName" yq -i '.etcd.members += {"name":env(vname),"ip_address":env(vip)}'  ./yq_pg/sample.yml
+    yq -i '... style=""'  ./yq_pg/sample.yml
+
+done
+
