@@ -28,3 +28,19 @@ for f in *.json; do
 done
 
 --------------------------------------------
+% export var1=a-b-c
+% echo $var1
+a-b-c
+% echo $test | jq '."$var1"'
+null
+%
+
+Use the --arg option to initialize a jq variable with a shell variable's value.
+
+jq --arg key "$var1" '.[$key]'
+
+or
+
+% echo $test | jq ".\"$var1\""
+"x-y-z"
+%
