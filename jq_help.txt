@@ -1,0 +1,30 @@
+Easiest way to convert a bash array to a JSON array using JQ is to use the --args flag.
+
+$ jq -n '$ARGS.positional' --args "${group_list[@]}"
+Output:
+[
+  "dummy group 1",
+  "dummy group 2"
+]
+-------------------------------------------
+create a shell script file:
+
+
+#!/bin/bash
+#yq -i '.etcd.members=[]' ./yq_pg/sample.yml
+cd jq_pg
+for f in *.json; do
+    fname="$f"
+    echo "$fname"
+    #tempSplit=$(jq -n "\"$fname\" | split(\"-\";null)")
+    #echo "$tempSplit"
+    vmIndex=$(jq -n "\"$fname\" | split(\"-\";null) | .[-2]")
+    echo "$vmIndex"
+
+    tempIp=$(jq '.ip' $f )
+    echo "$tempIp"
+    tempName=$(jq --arg vmi "$vmIndex" '.subproject.environment +"-"+ .site+"-"+$vmi' $f)
+    echo "$tempName"
+done
+
+--------------------------------------------
